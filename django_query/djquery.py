@@ -16,6 +16,6 @@ def get_default_valcastfunc(val_cast_type=None):
 def get_query_value(request, key, default=None, val_cast_func=None, val_cast_type=None):
     """ Get Query by POST/GET """
     if val_cast_type in ['int', 'listjson', 'dictjson']:
-        default, val_cast_func = get_default_valcastfunc(val_cast_type)
-    value = request.POST.get(key) or request.GET.get(key) or default
+        val_default, val_cast_func = get_default_valcastfunc(val_cast_type)
+    value = request.POST.get(key) or request.GET.get(key) or default or val_default
     return val_cast_func(value) if val_cast_func else (value or '')
